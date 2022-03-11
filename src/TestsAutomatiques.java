@@ -1,5 +1,3 @@
-package fr.joanteriihoania.algoavance_grille;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.concurrent.ExecutionException;

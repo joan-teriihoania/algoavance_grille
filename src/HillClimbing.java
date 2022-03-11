@@ -1,7 +1,3 @@
-package fr.joanteriihoania.algoavance_grille;
-
-import java.util.ArrayList;
-
 class HillClimbing {
 
     public static Solution hillClimbingWithRestart(IFactory f, int nbRestart) {

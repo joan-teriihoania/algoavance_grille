@@ -1,7 +1,4 @@
-package fr.joanteriihoania.algoavance_grille;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Objects;
 
 public class Instance {

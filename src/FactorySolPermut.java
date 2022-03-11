@@ -1,5 +1,3 @@
-package fr.joanteriihoania.algoavance_grille;
-
 import java.util.*;
 
 class FactorySolPermut implements IFactory {
