@@ -301,9 +301,7 @@ public class Instance {
         //on doit retourner (0,2,1)
 
         //a compléter
-        ArrayList<Integer> list = greedyPermutRec(startingP, new ArrayList<>(listeCoordPieces));
-
-        return list;
+        return greedyPermutRec(startingP, new ArrayList<>(listeCoordPieces));
     }
 
     private int sizeNonNull(ArrayList<Coord> coords){
