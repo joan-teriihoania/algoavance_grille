@@ -1,4 +1,6 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Instance {
@@ -204,6 +206,26 @@ public class Instance {
         // et les coordonnées ne sortent pas du plateau)
 
         //à compléter
+        if(s.size() > getK()+1){
+            return false;
+        }
+
+        Coord lastCoord = null;
+        for (Coord coord: s) {
+            if(lastCoord != null){
+                if(!lastCoord.estADistanceUn(coord)){
+                    return false; // ne fait pas attention, je sais c'est un return dans une boucle
+                    // mais sinon ça fait compliqué pour rien :)
+                }
+            }
+
+            if(!coord.estDansPlateau(plateau.length, plateau[0].length)){
+                return false;
+            }
+
+            lastCoord = coord;
+        }
+
         return true;
     }
 
@@ -213,8 +235,15 @@ public class Instance {
         //action : retourne le nombre de pièces ramassées par s (et ne doit pas modifier this ni s)
 
         //à compléter
+        int count = 0;
 
-        return 0;
+        for(Coord s_coord: s){
+            if(isCoordIn(s_coord, listeCoordPieces)){
+                count += 1;
+            }
+        }
+
+        return count;
     }
 
 
@@ -229,6 +258,22 @@ public class Instance {
         //à compléter
 
         return 0;
+    }
+
+    private static boolean isCoordIn(Coord coord, ArrayList<Coord> array){
+        return getIndexOf(coord, array) != -1;
+    }
+
+    private static int getIndexOf(Coord coord, ArrayList<Coord> array){
+        for (int i = 0; i < array.size(); i++) {
+            Coord p_coord = array.get(i);
+
+            if(coord.getC() == p_coord.getC() && coord.getL() == p_coord.getL()){
+                return i;
+            }
+        }
+
+        return -1;
     }
 
     /************************************************
@@ -256,8 +301,49 @@ public class Instance {
         //on doit retourner (0,2,1)
 
         //a compléter
+        ArrayList<Integer> list = greedyPermutRec(startingP, new ArrayList<>(listeCoordPieces));
 
-        return null;
+        return list;
+    }
+
+    private int sizeNonNull(ArrayList<Coord> coords){
+        int count = 0;
+
+        for(Coord coord: coords){
+            if(coord != null){
+                count += 1;
+            }
+        }
+
+        return count;
+    }
+
+    private ArrayList<Integer> greedyPermutRec(Coord current_pos, ArrayList<Coord> remainingPieces){
+        ArrayList<Integer> r = new ArrayList<>();
+
+        if(sizeNonNull(remainingPieces) == 0){
+            return r;
+        }
+
+        int selectedIndex = -1;
+        for(int i = 0; i < remainingPieces.size();i++){
+            Coord coord = remainingPieces.get(i);
+            if(coord != null){
+                if(selectedIndex == -1){
+                    selectedIndex = i;
+                } else {
+                    if(remainingPieces.get(selectedIndex).distanceFrom(current_pos) > coord.distanceFrom(current_pos)){
+                        selectedIndex = i;
+                    }
+                }
+            }
+        }
+
+        Coord newPos = remainingPieces.get(selectedIndex);
+        remainingPieces.set(selectedIndex, null);
+        r.add(selectedIndex);
+        r.addAll(greedyPermutRec(newPos, remainingPieces));
+        return r;
     }
 
 
@@ -280,7 +366,7 @@ public class Instance {
         // et on s'arrête avant d'avoir fait k pas car on a tout collecté)
 
         //a compléter
-
+        int remaining_k = getK();
         return null;
     }
 
