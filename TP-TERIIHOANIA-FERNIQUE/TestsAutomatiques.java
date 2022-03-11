@@ -154,6 +154,9 @@ class TestsAutomatiques {
         res.add(new Coord(0,2));
         res.add(new Coord(0,3));
         res.add(new Coord(1,3));
+
+        System.out.println(res);
+
         if(in0.calculerSol(permut).equals(res))
             return 1;
         else

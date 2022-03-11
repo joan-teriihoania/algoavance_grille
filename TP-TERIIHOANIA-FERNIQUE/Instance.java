@@ -364,8 +364,54 @@ public class Instance {
         // et on s'arrête avant d'avoir fait k pas car on a tout collecté)
 
         //a compléter
-        int remaining_k = getK();
-        return null;
+        Solution s = new Solution();
+        s.add(startingP);
+
+        for(int i = 0; i < permut.size() && s.size() <= getK();i++){
+            Coord start;
+
+            if(i == 0) {
+                start = startingP;
+            } else {
+                start = listeCoordPieces.get(permut.get(i - 1));
+            }
+            Coord end = listeCoordPieces.get(permut.get(i));
+
+            Solution s_ = calculerSolRec(start, end);
+            for(Coord c: s_){
+                if(s.size() <= getK()){
+                    s.add(c);
+                } else {
+                    break;
+                }
+            }
+        }
+
+        return s;
+    }
+
+    private Solution calculerSolRec(Coord pointA, Coord pointB){
+        Solution s = new Solution();
+        Coord current_pos = new Coord(pointA.getL(), pointA.getC());
+
+        while(current_pos.distanceFrom(pointB) > 0){
+            if(current_pos.getL() < pointB.getL()){
+                current_pos = new Coord(current_pos.getL() + 1, current_pos.getC());
+            }
+            if(current_pos.getL() > pointB.getL()){
+                current_pos = new Coord(current_pos.getL() - 1, current_pos.getC());
+            }
+
+            if(current_pos.getC() < pointB.getC()){
+                current_pos = new Coord(current_pos.getL(), current_pos.getC() + 1);
+            }
+            if(current_pos.getC() > pointB.getC()){
+                current_pos = new Coord(current_pos.getL(), current_pos.getC() - 1);
+            }
+            s.add(current_pos);
+        }
+
+        return s;
     }
 
 
