@@ -25,4 +25,4 @@ jobs:
       working-directory: "TP-TERIIHOANIA-FERNIQUE"
       run: |
         javac *.java
-        java TestsAutomatiques.java
+        java TestsAutomatiques
