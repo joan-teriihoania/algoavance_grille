@@ -27,7 +27,87 @@ public class Algos {
 
         //à compléter
 
+        //case de base si c == 0
+        if (id.c == 0) {
+            return new Solution(id.i.getStartingP());
+        }
+
+        Solution sol = rechercheOptFPT(id, new Solution());
+        return sol;
+    }
+
+    /**
+     * @param id     nouvelle instance qui a éte parcouru par le chemin
+     * @param chemin chemin déja parcouru
+     * @return la solution qui satisfait c ou sinon null si k==0
+     */
+    private static Solution rechercheOptFPT(InstanceDec id, Solution chemin) {
+        Solution nextChemin = new Solution();
+        for (Coord c : chemin) {
+            nextChemin.add(c);
+
+        }
+        nextChemin.add(id.i.getStartingP());
+        InstanceDec nextInstanceDec = new InstanceDec(new Instance(id.i), id.c);
+        nextInstanceDec.i.setK(id.i.getK() - 1);
+        if (nextInstanceDec.i.piecePresente(nextInstanceDec.i.getStartingP())) {
+            nextInstanceDec.c--;
+            nextInstanceDec.i.retirerPiece(nextInstanceDec.i.getStartingP());
+        }
+        //cas de base
+        if (nextInstanceDec.i.getK() == 0) {
+            if (nextInstanceDec.c <= 0) {
+                System.out.println("Fin bien");
+                return nextChemin;
+            } else {
+                System.out.println(nextChemin);
+                return null;
+            }
+
+        }
+
+        //Recupérer les coord des case dans les 4 directions
+        Coord left = new Coord(id.i.getStartingP().getL(), id.i.getStartingP().getC() - 1);
+        Coord up = new Coord(id.i.getStartingP().getL() - 1, id.i.getStartingP().getC());
+        Coord right = new Coord(id.i.getStartingP().getL(), id.i.getStartingP().getC() + 1);
+        Coord down = new Coord(id.i.getStartingP().getL() + 1, id.i.getStartingP().getC());
+
+        Solution leftSol;
+        Solution upSol;
+        Solution downSol;
+        Solution rightSol;
+        nextInstanceDec.i.setK(id.i.getK() - 1);
+
+        if (left.estDansPlateau(nextInstanceDec.i.getNbL(), nextInstanceDec.i.getNbC())) {
+            nextInstanceDec.i.setStartingP(left);
+            leftSol = rechercheOptFPT(nextInstanceDec, nextChemin);
+            if (leftSol != null) {
+                return leftSol;
+            }
+        }
+        if (up.estDansPlateau(nextInstanceDec.i.getNbL(), nextInstanceDec.i.getNbC())) {
+            nextInstanceDec.i.setStartingP(up);
+            upSol = rechercheOptFPT(nextInstanceDec, nextChemin);
+            if (upSol != null) {
+                return upSol;
+            }
+        }
+        if (right.estDansPlateau(nextInstanceDec.i.getNbL(), nextInstanceDec.i.getNbC())) {
+            nextInstanceDec.i.setStartingP(right);
+            rightSol = rechercheOptFPT(nextInstanceDec, nextChemin);
+            if (rightSol != null) {
+                return rightSol;
+            }
+        }
+        if (down.estDansPlateau(nextInstanceDec.i.getNbL(), nextInstanceDec.i.getNbC())) {
+            nextInstanceDec.i.setStartingP(down);
+            downSol = rechercheOptFPT(nextInstanceDec, nextChemin);
+            if (downSol != null) {
+                return downSol;
+            }
+        }
         return null;
+
     }
 
 
