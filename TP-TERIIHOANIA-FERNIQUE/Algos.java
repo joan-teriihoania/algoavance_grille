@@ -32,8 +32,7 @@ public class Algos {
             return new Solution(id.i.getStartingP());
         }
 
-        Solution sol = rechercheOptFPT(id, new Solution());
-        return sol;
+        return rechercheOptFPT(id, new Solution());
     }
 
     /**
@@ -43,28 +42,28 @@ public class Algos {
      */
     private static Solution rechercheOptFPT(InstanceDec id, Solution chemin) {
         Solution nextChemin = new Solution();
-        for (Coord c : chemin) {
-            nextChemin.add(c);
 
-        }
+        nextChemin.addAll(chemin);
         nextChemin.add(id.i.getStartingP());
+
         InstanceDec nextInstanceDec = new InstanceDec(new Instance(id.i), id.c);
-        nextInstanceDec.i.setK(id.i.getK() - 1);
+
         if (nextInstanceDec.i.piecePresente(nextInstanceDec.i.getStartingP())) {
             nextInstanceDec.c--;
             nextInstanceDec.i.retirerPiece(nextInstanceDec.i.getStartingP());
         }
+
         //cas de base
         if (nextInstanceDec.i.getK() == 0) {
             if (nextInstanceDec.c <= 0) {
                 System.out.println("Fin bien");
                 return nextChemin;
             } else {
-                System.out.println(nextChemin);
                 return null;
             }
 
         }
+        nextInstanceDec.i.setK(id.i.getK() - 1);
 
         //Recupérer les coord des case dans les 4 directions
         Coord left = new Coord(id.i.getStartingP().getL(), id.i.getStartingP().getC() - 1);
