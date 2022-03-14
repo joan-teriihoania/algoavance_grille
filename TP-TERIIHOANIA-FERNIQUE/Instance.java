@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -433,6 +432,10 @@ public class Instance {
         //(pour des exemples précis, cf les tests)
 
         //à compléter
+        ArrayList<Coord> liste = new ArrayList<>();
+        liste.add(startingP);
+        liste.addAll(listeCoordPieces);
+        Graph g = new Graph(liste);
 
         int count = 0;
         int remainingK = getK();

@@ -56,7 +56,7 @@ public class Algos {
         //cas de base
         if (nextInstanceDec.i.getK() == 0) {
             if (nextInstanceDec.c <= 0) {
-                System.out.println("Fin bien");
+
                 return nextChemin;
             } else {
                 return null;
