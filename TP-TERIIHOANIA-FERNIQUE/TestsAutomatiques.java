@@ -20,7 +20,7 @@ class TestsAutomatiques {
         note +=runTest(TestsAutomatiques::testGreedyPermut1,"testGreedyPermut1",2);
         note +=runTest(TestsAutomatiques::testCalculerSol1,"testCalculerSol1",2);
         note +=runTest(TestsAutomatiques::testFPT1_1,"testFPT1_1",2);
-        note +=runTest(TestsAutomatiques::testBorneSup_1,"testBorneSup_1",1);
+        note +=runTest(TestsAutomatiques::testBorneSup_1,"testBorneInf_1",1);
         note +=runTest(TestsAutomatiques::testElemPermutHC_1,"testElemPermutHC_1",2);
         note +=runTest(TestsAutomatiques::testNbSteps_1,"testNbSteps_1",2);
 
@@ -197,28 +197,6 @@ class TestsAutomatiques {
 
         boolean[][] p0 = {
                 {true, false, false, true, true}};
-        Coord sp0 = new Coord(0, 1);
-        int k0 = 2;
-        Instance in0 = new Instance(p0, sp0, k0);
-        int binf  =  in0.borneSup();;
-        if(binf == 2)
-            return 1;
-        else
-            return 0;
-    }
-
-    private static double testBorneSup_2()
-    {
-
-
-
-        boolean[][] p0 = {
-                {true, false, false, true, true},
-                {true, false, false, true, true},
-                {true, false, false, true, true},
-                {true, false, false, true, true},
-                {true, false, false, true, true}
-        };
         Coord sp0 = new Coord(0, 1);
         int k0 = 2;
         Instance in0 = new Instance(p0, sp0, k0);
