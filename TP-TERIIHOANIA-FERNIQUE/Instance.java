@@ -434,7 +434,28 @@ public class Instance {
 
         //à compléter
 
+        int count = 0;
+        int remainingK = getK();
+        // starting point first
+        if (g.edges.size()>0){
+            Edge startingEdge = g.edges.get(0);
+            remainingK -= startingEdge.value;
+            if(remainingK>=0) {
+                g.removeEdge(startingEdge);
+                count += 1;
+            }
+        }
 
-        return 0;
+        // then we go through all edges
+        while(remainingK > 0 && g.edges.size() > 0){
+            Edge minEdge = g.getMinEdgeOfAll();
+            remainingK -= minEdge.value;
+            if(remainingK >= 0){
+                g.removeEdge(minEdge);
+                count += 1;
+            }
+        }
+
+        return count;
     }
 }
