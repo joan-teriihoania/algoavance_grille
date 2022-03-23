@@ -255,8 +255,16 @@ public class Instance {
         //retourne le nombre de pas qu'il faudrait pour ramasser toutes les pièces dans l'ordre de permut
 
         //à compléter
+        int count = 0;
+        Coord prev = startingP;
 
-        return 0;
+        for(Integer pieceIndex: permut){
+            Coord piece = listeCoordPieces.get(pieceIndex);
+            count += prev.distanceFrom(piece);
+            prev = piece;
+        }
+
+        return count;
     }
 
     private static boolean isCoordIn(Coord coord, ArrayList<Coord> array){
