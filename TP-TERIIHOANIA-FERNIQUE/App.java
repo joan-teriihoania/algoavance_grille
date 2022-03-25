@@ -95,7 +95,7 @@ class App {
 
 
         // in2 : avec pieces dans la diagonale
-        /*
+
         boolean[][] p2 = new boolean[40][40];
         for (int i = 0; i < p2.length; i++) {
             p2[i][i] = true;
@@ -103,7 +103,7 @@ class App {
         Coord sp2 = new Coord(0, 0);
         int k2 = p2.length/2;
         Instance in2 = new Instance(p2, sp2, k2);
-        System.out.println("in2 \n" + in2);*/
+        System.out.println("in2 \n" + in2);
 
 
         // in6 : une instance que l'on configure comme on souhaite
@@ -116,7 +116,7 @@ class App {
             p6[l6[i]][c6[i]] = true;
         }
         Coord sp6 = new Coord(13,8);
-        int k6 = 13; // très long
+        int k6 = 15; // très long
         // prend plus d'une minute à partir de 11~12~13
         Instance in6 = new Instance(p6,sp6,k6);
         int sg6 = in6.evaluerSolution(Algos.greedySolver(in6));
@@ -127,7 +127,7 @@ class App {
         /************************************************
          **** comparaison des algos        ******
          *************************************************/
-        /*
+
         int sommeG = 0;
         int sommeL = 0;
         for(int i=0;i<20;i++){
@@ -137,6 +137,6 @@ class App {
             sommeL += inst.evaluerSolution(HillClimbing.hillClimbingWithRestart(facto,10));
         }
         System.out.println("somme G " + sommeG + " somme L " + sommeL);
-        */
+
     }
 }
