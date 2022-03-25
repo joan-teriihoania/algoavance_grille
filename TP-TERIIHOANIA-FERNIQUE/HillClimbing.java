@@ -5,9 +5,15 @@ class HillClimbing {
 
         //prérequis : nbRestart >= 1
         //effectue nbRestart fois l'algorithme de hillClimbing, en partant à chaque fois d'un élément donné par f
-
+        IElemHC best = f.getRandomSol();
+        for (int i = 0; i < nbRestart; i++) {
+            IElemHC elem = hillClimbing(f.getRandomSol());
+            if(elem.getVal() > best.getVal()){
+                best = elem;
+            }
+        }
         //à compléter
-        return null;
+        return best.getSol();
     }
 
     public static IElemHC hillClimbing(IElemHC s){
@@ -17,8 +23,14 @@ class HillClimbing {
         // - en prenant à chaque étape le meilleur des voisins de la solution courante (ou un des meilleurs si il y a plusieurs ex aequo)
         // - en s'arrêtant dès que la solution courante n'a pas de voisin strictement meilleur qu'elle
         // (meilleur au sens de getVal strictement plus grand)
+        IElemHC best = s;
+        for(IElemHC elem: s.getVoisins()){
+            if(elem.getVal() > best.getVal()){
+                best = elem;
+            }
+        }
 
         // à compléter
-       return null;
+       return best;
     }
 }
