@@ -1,3 +1,4 @@
+import javax.swing.text.Element;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -43,7 +44,7 @@ public class ElemPermutHC implements IElemHC {
         //- nbStepsTotal est le nombre de pas total qu'il faudrait pour ramasser toutes les pièces dans l'ordre de permut
 
         // à compléter
-     return 0;
+         return (i.getNbL() * i.getNbC()) + i.evaluerSolution(getSol()) - i.nbStepsToCollectAll(permut);
     }
 
     public Solution getSol(){
@@ -62,8 +63,18 @@ public class ElemPermutHC implements IElemHC {
         //ne dois pas modifier this
 
         //à compléter
-
-        return null;
+        ArrayList<ElemPermutHC> voisins = new ArrayList<>();
+        for (int l = this.i.getStartingP().getL() - 1; l <= this.i.getStartingP().getL() + 1; l++) {
+            for (int c = this.i.getStartingP().getC() - 1; c <= this.i.getStartingP().getC() + 1; c++) {
+                Coord coord = new Coord(l, c);
+                if(l >= 0 && l < this.i.getNbL() && c >= 0 && c < this.i.getNbC() && coord.distanceFrom(this.i.getStartingP()) <= 1){
+                    ElemPermutHC voisin = new ElemPermutHC(this);
+                    voisin.i.setStartingP(coord);
+                    voisins.add(voisin);
+                }
+            }
+        }
+        return voisins;
     }
 
 
@@ -74,7 +85,18 @@ public class ElemPermutHC implements IElemHC {
         //pour dist = 1, doit retourner getVoisinsImmediats();
 
         //à compléter
-      return null;
+        ArrayList<ElemPermutHC> voisins = new ArrayList<>();
+        voisins.add(new ElemPermutHC(this));
+        for (int l = this.i.getStartingP().getL() - dist; l <= this.i.getStartingP().getL() + dist; l++) {
+            for (int c = this.i.getStartingP().getC() - dist; c <= this.i.getStartingP().getL() + dist; c++) {
+                if(l > 0 && l < this.i.getNbL() && c > 0 && c < this.i.getNbC()){
+                    ElemPermutHC voisin = new ElemPermutHC(this);
+                    voisin.i.setStartingP(new Coord(l, c));
+                    voisins.add(voisin);
+                }
+            }
+        }
+        return voisins;
     }
 
 }
