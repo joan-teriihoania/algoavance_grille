@@ -86,12 +86,12 @@ public class ElemPermutHC implements IElemHC {
 
         //à compléter
         ArrayList<ElemPermutHC> voisins = new ArrayList<>();
-        voisins.add(new ElemPermutHC(this));
         for (int l = this.i.getStartingP().getL() - dist; l <= this.i.getStartingP().getL() + dist; l++) {
-            for (int c = this.i.getStartingP().getC() - dist; c <= this.i.getStartingP().getL() + dist; c++) {
-                if(l > 0 && l < this.i.getNbL() && c > 0 && c < this.i.getNbC()){
+            for (int c = this.i.getStartingP().getC() - dist; c <= this.i.getStartingP().getC() + dist; c++) {
+                Coord coord = new Coord(l, c);
+                if(l >= 0 && l < this.i.getNbL() && c >= 0 && c < this.i.getNbC() && coord.distanceFrom(this.i.getStartingP()) <= dist){
                     ElemPermutHC voisin = new ElemPermutHC(this);
-                    voisin.i.setStartingP(new Coord(l, c));
+                    voisin.i.setStartingP(coord);
                     voisins.add(voisin);
                 }
             }
