@@ -79,32 +79,31 @@ public class Algos {
         if (left.estDansPlateau(nextInstanceDec.i.getNbL(), nextInstanceDec.i.getNbC())) {
             nextInstanceDec.i.setStartingP(left);
             leftSol = rechercheOptFPT(nextInstanceDec, nextChemin);
-            if (leftSol != null) {
-                return leftSol;
-            }
         }
         if (up.estDansPlateau(nextInstanceDec.i.getNbL(), nextInstanceDec.i.getNbC())) {
             nextInstanceDec.i.setStartingP(up);
             upSol = rechercheOptFPT(nextInstanceDec, nextChemin);
-            if (upSol != null) {
-                return upSol;
-            }
         }
         if (right.estDansPlateau(nextInstanceDec.i.getNbL(), nextInstanceDec.i.getNbC())) {
             nextInstanceDec.i.setStartingP(right);
             rightSol = rechercheOptFPT(nextInstanceDec, nextChemin);
-            if (rightSol != null) {
-                return rightSol;
-            }
         }
         if (down.estDansPlateau(nextInstanceDec.i.getNbL(), nextInstanceDec.i.getNbC())) {
             nextInstanceDec.i.setStartingP(down);
             downSol = rechercheOptFPT(nextInstanceDec, nextChemin);
-            if (downSol != null) {
-                return downSol;
-            }
         }
-        return null;
+        
+        Solution bestSol = leftSol;
+        if(bestSol == null || id.i.evaluerSolution(upSol) > id.id.evaluerSolution(bestSol){
+            bestSol = upSol;
+        }
+        if(bestSol == null || id.i.evaluerSolution(downSol) > id.id.evaluerSolution(bestSol){
+            bestSol = downSol;
+        }
+        if(bestSol == null || id.i.evaluerSolution(rightSol) > id.id.evaluerSolution(bestSol){
+            bestSol = rightSol;
+        }
+        return bestSol;
     }
 
     /**
