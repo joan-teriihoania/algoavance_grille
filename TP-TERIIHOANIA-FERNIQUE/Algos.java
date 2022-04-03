@@ -94,13 +94,13 @@ public class Algos {
         }
         
         Solution bestSol = leftSol;
-        if(bestSol == null || id.i.evaluerSolution(upSol) > id.id.evaluerSolution(bestSol){
+        if(bestSol == null || id.i.evaluerSolution(upSol) > id.id.evaluerSolution(bestSol)){
             bestSol = upSol;
         }
-        if(bestSol == null || id.i.evaluerSolution(downSol) > id.id.evaluerSolution(bestSol){
+        if(bestSol == null || id.i.evaluerSolution(downSol) > id.id.evaluerSolution(bestSol)){
             bestSol = downSol;
         }
-        if(bestSol == null || id.i.evaluerSolution(rightSol) > id.id.evaluerSolution(bestSol){
+        if(bestSol == null || id.i.evaluerSolution(rightSol) > id.id.evaluerSolution(bestSol)){
             bestSol = rightSol;
         }
         return bestSol;
