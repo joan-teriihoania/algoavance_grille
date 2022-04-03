@@ -22,6 +22,7 @@ class TestsAutomatiques {
         note +=runTest(TestsAutomatiques::testFPT1_1,"testFPT1_1",2);
         note +=runTest(TestsAutomatiques::testBorneSup_1,"testBorneInf_1",1);
         note +=runTest(TestsAutomatiques::testElemPermutHC_1,"testElemPermutHC_1",2);
+        note +=runTest(TestsAutomatiques::testElemPermutHC_1_dist2,"testElemPermutHC_1_dist2",2);
         note +=runTest(TestsAutomatiques::testNbSteps_1,"testNbSteps_1",2);
 
 
@@ -232,6 +233,34 @@ class TestsAutomatiques {
         resset.addAll(res);
         //on vérifie que pas de doublons, et bonne taille
         if((resset.size()==res.size() && (res.size()==3)))
+            return 1;
+        else
+            return 0;
+    }
+
+    private static double testElemPermutHC_1_dist2()
+    {
+
+
+
+        boolean[][] p0 = {
+                {true, true},
+                {false, false},
+                {true, false},
+
+        };
+        Coord sp0 = new Coord(0, 0);
+        int k0 = 3;
+        Instance in0 = new Instance(p0, sp0, k0);
+        ArrayList<Integer> permut = new ArrayList<>();
+        permut.add(0);
+        permut.add(1);
+        permut.add(2);
+        ElemPermutHC.setDist(2);
+        ElemPermutHC e = new ElemPermutHC(in0,permut);
+        ArrayList<ElemPermutHC> res = e.getVoisins();
+        //on vérifie que pas de doublons, et bonne taille
+        if((res.size()==6))
             return 1;
         else
             return 0;
