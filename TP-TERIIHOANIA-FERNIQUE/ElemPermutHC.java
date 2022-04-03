@@ -1,4 +1,5 @@
 import javax.swing.text.Element;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -64,16 +65,14 @@ public class ElemPermutHC implements IElemHC {
 
         //à compléter
         ArrayList<ElemPermutHC> voisins = new ArrayList<>();
-        for (int l = this.i.getStartingP().getL() - 1; l <= this.i.getStartingP().getL() + 1; l++) {
-            for (int c = this.i.getStartingP().getC() - 1; c <= this.i.getStartingP().getC() + 1; c++) {
-                Coord coord = new Coord(l, c);
-                if(l >= 0 && l < this.i.getNbL() && c >= 0 && c < this.i.getNbC() && coord.distanceFrom(this.i.getStartingP()) <= 1){
-                    ElemPermutHC voisin = new ElemPermutHC(this);
-                    voisin.i.setStartingP(coord);
-                    voisins.add(voisin);
-                }
-            }
+        for (int i = 0; i < this.permut.size(); i++) {
+            ElemPermutHC voisin = new ElemPermutHC(this);
+            voisin.permut = new ArrayList<>(this.permut);
+            voisin.permut.remove(i);
+            voisin.permut.add(this.permut.get(i));
+            voisins.add(voisin);
         }
+
         return voisins;
     }
 
@@ -85,17 +84,33 @@ public class ElemPermutHC implements IElemHC {
         //pour dist = 1, doit retourner getVoisinsImmediats();
 
         //à compléter
-        ArrayList<ElemPermutHC> voisins = new ArrayList<>();
-        for (int l = this.i.getStartingP().getL() - dist; l <= this.i.getStartingP().getL() + dist; l++) {
-            for (int c = this.i.getStartingP().getC() - dist; c <= this.i.getStartingP().getC() + dist; c++) {
-                Coord coord = new Coord(l, c);
-                if(l >= 0 && l < this.i.getNbL() && c >= 0 && c < this.i.getNbC() && coord.distanceFrom(this.i.getStartingP()) <= dist){
-                    ElemPermutHC voisin = new ElemPermutHC(this);
-                    voisin.i.setStartingP(coord);
-                    voisins.add(voisin);
+        ArrayList<ElemPermutHC> voisins = getVoisinsRecurs(dist);
+        ArrayList<ElemPermutHC> uniqueVoisins = new ArrayList<>();
+        for (ElemPermutHC voisin :voisins) {
+            int nb_sim = 0;
+            for (ElemPermutHC voisin_ :uniqueVoisins) {
+                if(voisin.permut.equals(voisin_.permut)){
+                    nb_sim += 1;
                 }
             }
+
+            if(nb_sim == 0){
+                uniqueVoisins.add(voisin);
+            }
         }
+        return uniqueVoisins;
+    }
+
+    private ArrayList<ElemPermutHC> getVoisinsRecurs(int dist){
+        ArrayList<ElemPermutHC> voisinsImmediats = getVoisinsImmediats();
+        if (dist == 1) return voisinsImmediats;
+
+        ArrayList<ElemPermutHC> voisins = new ArrayList<>();
+
+        for (ElemPermutHC voisin :voisinsImmediats) {
+            voisins.addAll(voisin.getVoisinsRecurs(dist - 1));
+        }
+
         return voisins;
     }
 
