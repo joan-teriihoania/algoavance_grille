@@ -22,8 +22,31 @@ class TestsAutomatiques {
         note +=runTest(TestsAutomatiques::testFPT1_1,"testFPT1_1",2);
         note +=runTest(TestsAutomatiques::testBorneSup_1,"testBorneInf_1",1);
         note +=runTest(TestsAutomatiques::testElemPermutHC_1,"testElemPermutHC_1",2);
-        note +=runTest(TestsAutomatiques::testElemPermutHC_1_dist2,"testElemPermutHC_1_dist2",2);
         note +=runTest(TestsAutomatiques::testNbSteps_1,"testNbSteps_1",2);
+
+        // Nos tests :
+
+        System.out.println("----------- Test supplémentaires fpt -----------");
+        note +=runTest(TestsAutomatiques::testFPT1_2,"testFPT1_2",2);
+        note +=runTest(TestsAutomatiques::testFPT1_3,"testFPT1_3",2);
+        note +=runTest(TestsAutomatiques::testFPT1_4,"testFPT1_4",2);
+        note +=runTest(TestsAutomatiques::testFPT1_5,"testFPT1_5",2);
+        note +=runTest(TestsAutomatiques::testFPT1_6,"testFPT1_6",2);
+        note +=runTest(TestsAutomatiques::testFPT1_7,"testFPT1_7",2);
+        note +=runTest(TestsAutomatiques::testFPT1_8,"testFPT1_8",2);
+        note +=runTest(TestsAutomatiques::testFPT1_9,"testFPT1_9",2);
+
+        System.out.println("----------- Test fpt dp -----------");
+        note +=runTest(TestsAutomatiques::testFPT1DP_1,"testFPT1DP_1",2);
+        note +=runTest(TestsAutomatiques::testFPT1DP_2,"testFPT1DP_2",2);
+        note +=runTest(TestsAutomatiques::testFPT1DP_3,"testFPT1DP_3",2);
+        note +=runTest(TestsAutomatiques::testFPT1DP_4,"testFPT1DP_4",2);
+        note +=runTest(TestsAutomatiques::testFPT1DP_5,"testFPT1DP_5",2);
+        note +=runTest(TestsAutomatiques::testFPT1DP_6,"testFPT1DP_6",2);
+        note +=runTest(TestsAutomatiques::testFPT1DP_7,"testFPT1DP_7",2);
+        note +=runTest(TestsAutomatiques::testFPT1DP_8,"testFPT1DP_8",2);
+        note +=runTest(TestsAutomatiques::testFPT1DP_9,"testFPT1DP_9",2);
+
 
 
         System.out.println("fin des tests : note = " + note);
@@ -155,9 +178,6 @@ class TestsAutomatiques {
         res.add(new Coord(0,2));
         res.add(new Coord(0,3));
         res.add(new Coord(1,3));
-
-        System.out.println(res);
-
         if(in0.calculerSol(permut).equals(res))
             return 1;
         else
@@ -185,6 +205,8 @@ class TestsAutomatiques {
         res.add(new Coord(0,1));
         res.add(new Coord(0,0));
         Solution s =  Algos.algoFPT1(id0);
+        //Solution s =  Algos.algoFPT1DPClient(id0);
+
         if(s != null && s.equals(res))
             return 1;
         else
@@ -238,34 +260,6 @@ class TestsAutomatiques {
             return 0;
     }
 
-    private static double testElemPermutHC_1_dist2()
-    {
-
-
-
-        boolean[][] p0 = {
-                {true, true},
-                {false, false},
-                {true, false},
-
-        };
-        Coord sp0 = new Coord(0, 0);
-        int k0 = 3;
-        Instance in0 = new Instance(p0, sp0, k0);
-        ArrayList<Integer> permut = new ArrayList<>();
-        permut.add(0);
-        permut.add(1);
-        permut.add(2);
-        ElemPermutHC.setDist(2);
-        ElemPermutHC e = new ElemPermutHC(in0,permut);
-        ArrayList<ElemPermutHC> res = e.getVoisins();
-        //on vérifie que pas de doublons, et bonne taille
-        if((res.size()==6))
-            return 1;
-        else
-            return 0;
-    }
-
 
     private static double testNbSteps_1()
     {
@@ -291,6 +285,471 @@ class TestsAutomatiques {
         else
             return 0;
     }
+
+    // TEST DP :
+
+    private static double testFPT1DP_1()
+    {
+
+
+
+        boolean[][] p0 = {
+                {true, true, false, false, true}
+        };
+        Coord sp0 = new Coord(0, 3);
+        int k0 = 3;
+        Instance in0 = new Instance(p0, sp0, k0);
+        InstanceDec id0 = new InstanceDec(in0,2);
+
+        ArrayList<Coord> res = new ArrayList<>();
+        res.add(new Coord(0,3));
+        res.add(new Coord(0,2));
+        res.add(new Coord(0,1));
+        res.add(new Coord(0,0));
+        //Solution s =  Algos.algoFPT1(id0);
+        Solution s =  Algos.algoFPT1DPClient(id0);
+
+        if(s != null && s.equals(res))
+            return 1;
+        else
+            return 0;
+    }
+
+    private static double testFPT1DP_2()
+    {
+
+
+
+        boolean[][] p0 = {
+                {false, false, false, false, false}
+        };
+        Coord sp0 = new Coord(0, 3);
+        int k0 = 3;
+        Instance in0 = new Instance(p0, sp0, k0);
+        InstanceDec id0 = new InstanceDec(in0,2);
+
+        ArrayList<Coord> res = new ArrayList<>();
+        res.add(new Coord(0,3));
+        res.add(new Coord(0,2));
+        res.add(new Coord(0,1));
+        res.add(new Coord(0,0));
+        //Solution s =  Algos.algoFPT1(id0);
+        Solution s =  Algos.algoFPT1DPClient(id0);
+
+        if(s == null)
+            return 1;
+        else
+            return 0;
+    }
+
+    private static double testFPT1DP_3()
+    {
+
+
+
+        boolean[][] p0 = {
+                {false, false, false, false, false},
+                {false, false, false, false, false},
+                {false, false, false, false, false}
+        };
+        Coord sp0 = new Coord(0, 3);
+        int k0 = 3;
+        Instance in0 = new Instance(p0, sp0, k0);
+        InstanceDec id0 = new InstanceDec(in0,2);
+
+        ArrayList<Coord> res = new ArrayList<>();
+        res.add(new Coord(0,3));
+        res.add(new Coord(0,2));
+        res.add(new Coord(0,1));
+        res.add(new Coord(0,0));
+        //Solution s =  Algos.algoFPT1(id0);
+        Solution s =  Algos.algoFPT1DPClient(id0);
+
+        if(s == null)
+            return 1;
+        else
+            return 0;
+    }
+
+    private static double testFPT1DP_4()
+    {
+
+
+
+        boolean[][] p0 = {
+                {false, false, false, true, false},
+                {true, false, false, false, true},
+                {false, false, false, false, true}
+        };
+        Coord sp0 = new Coord(1,2);
+        int k0 = 4;
+        Instance in0 = new Instance(p0, sp0, k0);
+        InstanceDec id0 = new InstanceDec(in0,3);
+
+        ArrayList<Coord> res = new ArrayList<>();
+        res.add(new Coord(0,3));
+        res.add(new Coord(0,2));
+        res.add(new Coord(0,1));
+        res.add(new Coord(0,0));
+        //Solution s =  Algos.algoFPT1(id0);
+        Solution s =  Algos.algoFPT1DPClient(id0);
+
+        if(s == null)
+            return 1;
+        else
+            return 0;
+    }
+
+    private static double testFPT1DP_5()
+    {
+
+        boolean[][] p0 = {
+                {false, false, false, true, false},
+                {true, false, false, false, true},
+                {false, false, false, false, true}
+        };
+        Coord sp0 = new Coord(1,2);
+        int k0 = 5;
+        Instance in0 = new Instance(p0, sp0, k0);
+        InstanceDec id0 = new InstanceDec(in0,3);
+
+        ArrayList<Coord> res = new ArrayList<>();
+        res.add(new Coord(1,2));
+        res.add(new Coord(0,2));
+        res.add(new Coord(0,3));
+        res.add(new Coord(0,4));
+        res.add(new Coord(1,4));
+        res.add(new Coord(2,4));
+        //Solution s =  Algos.algoFPT1(id0);
+        Solution s =  Algos.algoFPT1DPClient(id0);
+        System.out.println(s);
+        System.out.println(res);
+
+        if(s != null && s.equals(res))
+            return 1;
+        else
+            return 0;
+    }
+
+    private static double testFPT1DP_6()
+    {
+
+        boolean[][] p0 = {
+                {false, false, false, true, false},
+                {true, false, false, false, true},
+                {false, false, false, false, true}
+        };
+        Coord sp0 = new Coord(1,2);
+        int k0 = 5;
+        Instance in0 = new Instance(p0, sp0, k0);
+        InstanceDec id0 = new InstanceDec(in0,0);
+
+        ArrayList<Coord> res = new ArrayList<>();
+        res.add(new Coord(1,2));
+        //Solution s =  Algos.algoFPT1(id0);
+        Solution s =  Algos.algoFPT1DPClient(id0);
+        System.out.println(s);
+
+        if(s != null && s.equals(res))
+            return 1;
+        else
+            return 0;
+    }
+
+    private static double testFPT1DP_7()
+    {
+
+        boolean[][] p0 = {
+                {true, true, true, true, true},
+                {true, true, true, true, true},
+                {true, true, true, true, true}
+        };
+        Coord sp0 = new Coord(1,2);
+        int k0 = 4;
+        Instance in0 = new Instance(p0, sp0, k0);
+        InstanceDec id0 = new InstanceDec(in0,4);
+
+        ArrayList<Coord> res = new ArrayList<>();
+        res.add(new Coord(1,2));
+        //Solution s =  Algos.algoFPT1(id0);
+        Solution s =  Algos.algoFPT1DPClient(id0);
+        System.out.println(s);
+
+        if(s != null)
+            return 1;
+        else
+            return 0;
+    }
+
+    private static double testFPT1DP_8()
+    {
+
+        boolean[][] p0 = {
+                {true, true, true, true, true},
+                {true, true, true, true, true},
+                {true, true, true, true, true}
+        };
+        Coord sp0 = new Coord(1,2);
+        int k0 = 4;
+        Instance in0 = new Instance(p0, sp0, k0);
+        InstanceDec id0 = new InstanceDec(in0,5);
+
+        ArrayList<Coord> res = new ArrayList<>();
+        res.add(new Coord(1,2));
+        //Solution s =  Algos.algoFPT1(id0);
+        Solution s =  Algos.algoFPT1DPClient(id0);
+        System.out.println(s);
+
+        if(s != null)
+            return 1;
+        else
+            return 0;
+    }
+
+    private static double testFPT1DP_9()
+    {
+
+        boolean[][] p0 = {
+                {true, true, true, true, true},
+                {true, true, true, true, true},
+                {true, true, true, true, true}
+        };
+        Coord sp0 = new Coord(1,2);
+        int k0 = 4;
+        Instance in0 = new Instance(p0, sp0, k0);
+        InstanceDec id0 = new InstanceDec(in0,6);
+
+        ArrayList<Coord> res = new ArrayList<>();
+        res.add(new Coord(1,2));
+        //Solution s =  Algos.algoFPT1(id0);
+        Solution s =  Algos.algoFPT1DPClient(id0);
+        System.out.println(s);
+
+        if(s == null)
+            return 1;
+        else
+            return 0;
+    }
+
+
+    // TEST COMPLEMENTAIRE FPT SIMPLE
+    private static double testFPT1_2()
+    {
+
+
+
+        boolean[][] p0 = {
+                {false, false, false, false, false}
+        };
+        Coord sp0 = new Coord(0, 3);
+        int k0 = 3;
+        Instance in0 = new Instance(p0, sp0, k0);
+        InstanceDec id0 = new InstanceDec(in0,2);
+
+        ArrayList<Coord> res = new ArrayList<>();
+        res.add(new Coord(0,3));
+        res.add(new Coord(0,2));
+        res.add(new Coord(0,1));
+        res.add(new Coord(0,0));
+        Solution s =  Algos.algoFPT1(id0);
+        //Solution s =  Algos.algoFPT1DPClient(id0);
+
+        if(s == null)
+            return 1;
+        else
+            return 0;
+    }
+
+    private static double testFPT1_3()
+    {
+
+
+
+        boolean[][] p0 = {
+                {false, false, false, false, false},
+                {false, false, false, false, false},
+                {false, false, false, false, false}
+        };
+        Coord sp0 = new Coord(0, 3);
+        int k0 = 3;
+        Instance in0 = new Instance(p0, sp0, k0);
+        InstanceDec id0 = new InstanceDec(in0,2);
+
+        ArrayList<Coord> res = new ArrayList<>();
+        res.add(new Coord(0,3));
+        res.add(new Coord(0,2));
+        res.add(new Coord(0,1));
+        res.add(new Coord(0,0));
+        Solution s =  Algos.algoFPT1(id0);
+        //Solution s =  Algos.algoFPT1DPClient(id0);
+
+        if(s == null)
+            return 1;
+        else
+            return 0;
+    }
+
+    private static double testFPT1_4()
+    {
+
+
+
+        boolean[][] p0 = {
+                {false, false, false, true, false},
+                {true, false, false, false, true},
+                {false, false, false, false, true}
+        };
+        Coord sp0 = new Coord(1,2);
+        int k0 = 4;
+        Instance in0 = new Instance(p0, sp0, k0);
+        InstanceDec id0 = new InstanceDec(in0,3);
+
+        ArrayList<Coord> res = new ArrayList<>();
+        res.add(new Coord(0,3));
+        res.add(new Coord(0,2));
+        res.add(new Coord(0,1));
+        res.add(new Coord(0,0));
+        Solution s =  Algos.algoFPT1(id0);
+        //Solution s =  Algos.algoFPT1DPClient(id0);
+
+        if(s == null)
+            return 1;
+        else
+            return 0;
+    }
+
+    private static double testFPT1_5()
+    {
+
+        boolean[][] p0 = {
+                {false, false, false, true, false},
+                {true, false, false, false, true},
+                {false, false, false, false, true}
+        };
+        Coord sp0 = new Coord(1,2);
+        int k0 = 5;
+        Instance in0 = new Instance(p0, sp0, k0);
+        InstanceDec id0 = new InstanceDec(in0,3);
+
+        ArrayList<Coord> res = new ArrayList<>();
+        res.add(new Coord(1,2));
+        res.add(new Coord(0,2));
+        res.add(new Coord(0,3));
+        res.add(new Coord(1,3));
+        res.add(new Coord(1,4));
+        res.add(new Coord(2,4));
+        Solution s =  Algos.algoFPT1(id0);
+        //Solution s =  Algos.algoFPT1DPClient(id0);
+        System.out.println(s);
+
+        if(s != null && s.equals(res))
+            return 1;
+        else
+            return 0;
+    }
+
+    private static double testFPT1_6()
+    {
+
+        boolean[][] p0 = {
+                {false, false, false, true, false},
+                {true, false, false, false, true},
+                {false, false, false, false, true}
+        };
+        Coord sp0 = new Coord(1,2);
+        int k0 = 5;
+        Instance in0 = new Instance(p0, sp0, k0);
+        InstanceDec id0 = new InstanceDec(in0,0);
+
+        ArrayList<Coord> res = new ArrayList<>();
+        res.add(new Coord(1,2));
+        Solution s =  Algos.algoFPT1(id0);
+        //Solution s =  Algos.algoFPT1DPClient(id0);
+        System.out.println(s);
+
+        if(s != null && s.equals(res))
+            return 1;
+        else
+            return 0;
+    }
+
+    private static double testFPT1_7()
+    {
+
+        boolean[][] p0 = {
+                {true, true, true, true, true},
+                {true, true, true, true, true},
+                {true, true, true, true, true}
+        };
+        Coord sp0 = new Coord(1,2);
+        int k0 = 4;
+        Instance in0 = new Instance(p0, sp0, k0);
+        InstanceDec id0 = new InstanceDec(in0,4);
+
+        ArrayList<Coord> res = new ArrayList<>();
+        res.add(new Coord(1,2));
+        Solution s =  Algos.algoFPT1(id0);
+        //Solution s =  Algos.algoFPT1DPClient(id0);
+        System.out.println(s);
+
+        if(s != null)
+            return 1;
+        else
+            return 0;
+    }
+
+    private static double testFPT1_8()
+    {
+
+        boolean[][] p0 = {
+                {true, true, true, true, true},
+                {true, true, true, true, true},
+                {true, true, true, true, true}
+        };
+        Coord sp0 = new Coord(1,2);
+        int k0 = 4;
+        Instance in0 = new Instance(p0, sp0, k0);
+        InstanceDec id0 = new InstanceDec(in0,5);
+
+        ArrayList<Coord> res = new ArrayList<>();
+        res.add(new Coord(1,2));
+        Solution s =  Algos.algoFPT1(id0);
+        //Solution s =  Algos.algoFPT1DPClient(id0);
+        System.out.println(s);
+
+        if(s != null)
+            return 1;
+        else
+            return 0;
+    }
+
+    private static double testFPT1_9()
+    {
+
+        boolean[][] p0 = {
+                {true, true, true, true, true},
+                {true, true, true, true, true},
+                {true, true, true, true, true}
+        };
+        Coord sp0 = new Coord(1,2);
+        int k0 = 4;
+        Instance in0 = new Instance(p0, sp0, k0);
+        InstanceDec id0 = new InstanceDec(in0,6);
+
+        ArrayList<Coord> res = new ArrayList<>();
+        res.add(new Coord(1,2));
+        Solution s =  Algos.algoFPT1(id0);
+        //Solution s =  Algos.algoFPT1DPClient(id0);
+        System.out.println(s);
+
+        if(s == null)
+            return 1;
+        else
+            return 0;
+    }
+
+
+
 
 
 }
