@@ -94,13 +94,13 @@ public class Algos {
         }
         
         Solution bestSol = leftSol;
-        if(bestSol == null || id.i.evaluerSolution(upSol) > id.i.evaluerSolution(bestSol)){
+        if(bestSol == null || (upSol != null && id.i.evaluerSolution(upSol) > id.i.evaluerSolution(bestSol))){
             bestSol = upSol;
         }
-        if(bestSol == null || id.i.evaluerSolution(downSol) > id.i.evaluerSolution(bestSol)){
+        if(bestSol == null || (downSol != null && id.i.evaluerSolution(downSol) > id.i.evaluerSolution(bestSol))){
             bestSol = downSol;
         }
-        if(bestSol == null || id.i.evaluerSolution(rightSol) > id.i.evaluerSolution(bestSol)){
+        if(bestSol == null || (rightSol != null && id.i.evaluerSolution(rightSol) > id.i.evaluerSolution(bestSol))){
             bestSol = rightSol;
         }
         return bestSol;
@@ -145,47 +145,41 @@ public class Algos {
         Coord right = new Coord(id.i.getStartingP().getL(), id.i.getStartingP().getC() + 1);
         Coord down = new Coord(id.i.getStartingP().getL() + 1, id.i.getStartingP().getC());
 
-        Solution leftSol;
-        Solution upSol;
-        Solution downSol;
-        Solution rightSol;
+        Solution leftSol = null;
+        Solution upSol = null;
+        Solution downSol = null;
+        Solution rightSol = null;
         nextInstanceDec.i.setK(id.i.getK() - 1);
 
         if (left.estDansPlateau(nextInstanceDec.i.getNbL(), nextInstanceDec.i.getNbC())) {
             nextInstanceDec.i.setStartingP(left);
             leftSol = rechercheOptFPTDP(nextInstanceDec, nextChemin, table);
-            if (leftSol != null) {
-                table.put(id, leftSol);
-                return table.get(id);
-            }
         }
         if (up.estDansPlateau(nextInstanceDec.i.getNbL(), nextInstanceDec.i.getNbC())) {
             nextInstanceDec.i.setStartingP(up);
             upSol = rechercheOptFPTDP(nextInstanceDec, nextChemin, table);
-            if (upSol != null) {
-                table.put(id, upSol);
-                return table.get(id);
-            }
         }
         if (right.estDansPlateau(nextInstanceDec.i.getNbL(), nextInstanceDec.i.getNbC())) {
             nextInstanceDec.i.setStartingP(right);
             rightSol = rechercheOptFPTDP(nextInstanceDec, nextChemin, table);
-            if (rightSol != null) {
-                table.put(id, rightSol);
-                return table.get(id);
-            }
         }
         if (down.estDansPlateau(nextInstanceDec.i.getNbL(), nextInstanceDec.i.getNbC())) {
             nextInstanceDec.i.setStartingP(down);
             downSol = rechercheOptFPTDP(nextInstanceDec, nextChemin, table);
-            if (downSol != null) {
-                table.put(id, downSol);
-                return table.get(id);
-            }
         }
 
-        table.put(id, null);
-        return null;
+        Solution bestSol = leftSol;
+        if(bestSol == null || (upSol != null && id.i.evaluerSolution(upSol) > id.i.evaluerSolution(bestSol))){
+            bestSol = upSol;
+        }
+        if(bestSol == null || (downSol != null && id.i.evaluerSolution(downSol) > id.i.evaluerSolution(bestSol))){
+            bestSol = downSol;
+        }
+        if(bestSol == null || (rightSol != null && id.i.evaluerSolution(rightSol) > id.i.evaluerSolution(bestSol))){
+            bestSol = rightSol;
+        }
+        table.put(id, bestSol);
+        return bestSol;
     }
 
 
