@@ -70,10 +70,10 @@ public class Algos {
         Coord right = new Coord(id.i.getStartingP().getL(), id.i.getStartingP().getC() + 1);
         Coord down = new Coord(id.i.getStartingP().getL() + 1, id.i.getStartingP().getC());
 
-        Solution leftSol;
-        Solution upSol;
-        Solution downSol;
-        Solution rightSol;
+        Solution leftSol = null;
+        Solution upSol = null;
+        Solution downSol = null;
+        Solution rightSol = null;
         nextInstanceDec.i.setK(id.i.getK() - 1);
 
         if (left.estDansPlateau(nextInstanceDec.i.getNbL(), nextInstanceDec.i.getNbC())) {
